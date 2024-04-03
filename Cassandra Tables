@@ -1,0 +1,98 @@
+CREATE KEYSPACE IF NOT EXISTS menu
+WITH replication = {'class': 'SimpleStrategy', 'replication_factor': 1};
+
+
+
+
+CREATE TABLE Authors (
+    AuthorID UUID PRIMARY KEY,
+    FirstName TEXT,
+    LastName TEXT,
+    BirthDate DATE,
+    Country TEXT,
+    Awards TEXT
+);
+
+CREATE TABLE Publishers (
+    PublisherID UUID PRIMARY KEY,
+    PublisherName TEXT,
+    Address TEXT,
+    Phone TEXT,
+    Email TEXT
+);
+
+CREATE TABLE Books (
+    BookID UUID PRIMARY KEY,
+    Title TEXT,
+    ISBN TEXT,
+    Genre TEXT,
+    Price DECIMAL,
+    PublicationYear INT,
+    PublisherID UUID,
+    QuantityInStock INT
+);
+
+CREATE TABLE Customers (
+    CustomerID UUID PRIMARY KEY,
+    FirstName TEXT,
+    LastName TEXT,
+    Address TEXT,
+    Phone TEXT,
+    Email TEXT
+);
+
+CREATE TABLE ShoppingCart (
+    CustomerID UUID,
+    BookID UUID,
+    Quantity INT,
+    PRIMARY KEY (CustomerID, BookID)
+);
+
+CREATE TABLE Orders (
+    OrderID UUID PRIMARY KEY,
+    CustomerID UUID,
+    OrderDate DATE,
+    TotalAmount DECIMAL
+);
+
+CREATE TABLE OrderDetails (
+    OrderID UUID,
+    BookID UUID,
+    Quantity INT,
+    Subtotal DECIMAL,
+    PRIMARY KEY (OrderID, BookID)
+);
+
+CREATE TABLE Reviews (
+    ReviewID UUID PRIMARY KEY,
+    BookID UUID,
+    CustomerID UUID,
+    Rating INT,
+    Comment TEXT
+);
+
+CREATE TABLE CustomerSupport (
+    SupportID UUID PRIMARY KEY,
+    CustomerID UUID,
+    IssueType TEXT,
+    Description TEXT,
+    Status TEXT,
+    SupportDate DATE
+);
+
+CREATE TABLE PromotionalOffers (
+    OfferID UUID PRIMARY KEY,
+    OfferName TEXT,
+    Description TEXT,
+    DiscountPercentage DECIMAL,
+    StartDate DATE,
+    EndDate DATE
+);
+
+CREATE TABLE InventoryManagement (
+    InventoryID UUID PRIMARY KEY,
+    BookID UUID,
+    QuantityInStock INT,
+    LastUpdateDate DATE
+);
+

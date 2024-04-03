@@ -24,11 +24,23 @@ public class PublisherController {
 	
 	 @Autowired
 	    private PublisherService publisherService;
-
+	 	
+	 	
+	 	/**
+		 * @author sharath.boyini@npci.org.in
+		 * @apiNote gets all publishers
+		 *@param id
+		 */
 	    @GetMapping
 	    public List<Publisher> getAllPublishers() {
 	        return publisherService.getAllPublishers();
 	    }
+	    
+	    /**
+  		 * @author sharath.boyini@npci.org.in
+  		 * @apiNote gets all authors by id
+  		 *@param id
+  		 */
 
 	    @GetMapping("/{id}")
 	    public ResponseEntity<Publisher> getPublisherById(@PathVariable Long id) {
@@ -37,6 +49,12 @@ public class PublisherController {
 	        return publisher.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
 	                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
 	    }
+	    
+	    /**
+  		 * @author sharath.boyini@npci.org.in
+  		 * @apiNote posts all authors
+  		 *@param id
+  		 */
 
 	    @PostMapping
 	    public ResponseEntity<Publisher> createPublisher(@RequestBody Publisher publisher) {
@@ -53,6 +71,12 @@ public class PublisherController {
 	                .map(value -> new ResponseEntity<>(value, HttpStatus.OK))
 	                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
 	    }
+	    
+	    /**
+  		 * @author sharath.boyini@npci.org.in
+  		 * @apiNote gets all publishers
+  		 *@param id
+  		 */
 
 	    @DeleteMapping("/{id}")
 	    public ResponseEntity<Void> deletePublisher(@PathVariable Long id) {

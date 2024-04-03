@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,17 +22,29 @@ import com.afsd.redis.service.AuthorService;
 
 
 @RestController
+@Validated
 @RequestMapping("/authors")
 public class AuthorController {
 	
 	  @Autowired
 	    private AuthorService authorService;
 
+		/**
+		 * @author sharath.boyini@npci.org.in
+		 * @apiNote gets all authors
+		
+		 */
 	    @GetMapping
 	    public List<Author> getAllAuthors() {
 	        return authorService.getAllAuthors();
 	    }
+	    
 
+		/**
+		 * @author sharath.boyini@npci.org.in
+		 * @apiNote gets all authors
+		 *@param id
+		 */
 	    @GetMapping("/{id}")
 	    public ResponseEntity<Author> getAuthorById(@PathVariable Long id) {
 	        Optional<Author> author = authorService.getAuthorById(id);
@@ -39,6 +52,11 @@ public class AuthorController {
 	        return author.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
 	                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
 	    }
+	    /**
+		 * @author sharath.boyini@npci.org.in
+		 * @apiNote post all authors
+		 *@body author
+		 */
 
 	    @PostMapping
 	    public ResponseEntity<Author> createAuthor(@RequestBody Author author) {
@@ -46,7 +64,12 @@ public class AuthorController {
 
 	        return new ResponseEntity<>(createdAuthor, HttpStatus.CREATED);
 	    }
-
+	    
+	    /**
+	  		 * @author sharath.boyini@npci.org.in
+	  		 * @apiNote updates all authors by id
+	  		 *@param id
+	  		 */
 	    @PutMapping("/{id}")
 	    public ResponseEntity<Author> updateAuthor(@PathVariable Long id, @RequestBody Author updatedAuthor) {
 	        Author updated = authorService.updateAuthor(id, updatedAuthor);
@@ -55,6 +78,12 @@ public class AuthorController {
 	                .map(value -> new ResponseEntity<>(value, HttpStatus.OK))
 	                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
 	    }
+	    
+	    /**
+  		 * @author sharath.boyini@npci.org.in
+  		 * @apiNote deletes all authors by id
+  		 *@param id
+  		 */
 
 	    @DeleteMapping("/{id}")
 	    public ResponseEntity<Void> deleteAuthor(@PathVariable Long id) {

@@ -1,13 +1,14 @@
 package com.afsd.redis.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+
 
 import java.util.Date;
 
-import jakarta.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.*;
+
+
 
 @Entity
 @Table(name = "Authors")
